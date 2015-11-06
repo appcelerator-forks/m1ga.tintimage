@@ -2,7 +2,7 @@ var tint = require("miga.tintimage");
 
 var blob1 = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'images', 'bild1.jpg').read();
 var blob2 = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'images', 'bild3.png').read();
-var blob3 = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'images', 'bild2.png').read();
+var blob3 = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'images', 'bild2.jpg').read();
 
 // mask image
 $.img_final1.image = tint.mask({
@@ -16,7 +16,7 @@ $.img_final2.image = tint.tint({
     mask: blob3,
     color: "#f04f0f",
     mode: "multiply",   // overlay mode for "color"
-    modeMask: "multiply" // overlay mode for "mask"
+    modeMask: "overlay" // overlay mode for "mask"
 });
 
 // tint
