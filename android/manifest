@@ -2,7 +2,7 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.2
+version: 2.0
 apiversion: 2
 description: Tint Image
 author: Michael Gangolf
@@ -16,3 +16,4 @@ moduleid: miga.tintimage
 guid: 80851f88-f395-48d9-9749-e59a35259695
 platform: android
 minsdk: 3.1.2.GA
+architectures: armeabi armeabi-v7a x86

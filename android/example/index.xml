@@ -1,0 +1,9 @@
+<Alloy>
+	<Window>
+
+		<ImageView id="img_final1"></ImageView>
+		<ImageView id="img_final2"></ImageView>
+		<ImageView id="img_final3"></ImageView>
+		<ImageView id="img_final4"></ImageView>
+	</Window>
+</Alloy>
