@@ -9,60 +9,43 @@ Functions:
 
 tint
 
-```
-tint.tint({
-  image : img1.toBlob(), imageOverlay : img2.toBlob(), color : "#ff0000", modeColor : "overlay", modeImage : "overlay"
-});
-```
-
-mask (mask needs to be a transparent png)
-```
-tint.mask({
-  image : img1.toBlob(), mask: img2.toBlob()
-});
-```
-
-
-
-Example:
-
-  xml:
-```
-<Alloy>
-	<Window>
-		<ImageView id="img1"></ImageView>
-		<ImageView id="img2"></ImageView>
-		<ImageView id="img_final"></ImageView>
-	</Window>
-</Alloy>
-```
-
-  controller:
-```
+```javascript
 var tint = require("miga.tintimage");
 
-/*
-// two images and color
-$.img_final.image = tint.tint({
-image : $.img1.toBlob(), imageOverlay : $.img2.toBlob(), color : "#ff0000", modeColor : "overlay", modeImage : "overlay"
-});
-*/
+var blob1 = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'images', 'bild1.jpg').read();
+var blob2 = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'images', 'bild3.png').read();
+var blob3 = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'images', 'bild2.jpg').read();
 
-/*
-//mask
-tint.mask({
-  image : img1.toBlob(), mask: img2.toBlob()
+// mask image
+$.img_final1.image = tint.mask({
+    image: blob1,
+    mask: blob2
 });
-*/
 
-// color overlay
-$.img_final.image = tint.tint({
-    image : $.img1.toBlob(), color : "#ff0000", modeColor : "multiply"
+// mask and tint
+$.img_final2.image = tint.tint({
+    image: blob1,
+    mask: blob3,
+    color: "#f04f0f",
+    mode: "multiply",   // overlay mode for "color"
+    modeMask: "overlay" // overlay mode for "mask"
+});
+
+// tint
+$.img_final3.image = tint.tint({
+    image: blob1,
+    color: "#ff0000",
+    mode: "multiply"
+});
+
+// tint - using mask as backgroundimage (like Ti.UI.MaskedImage)
+$.img_final4.image = tint.tint({
+    mask: blob1,
+    color: "#ff00ff",
+    mode: "multiply"
 });
 
 $.index.open();
-
-
 ```
 
 Modes:
