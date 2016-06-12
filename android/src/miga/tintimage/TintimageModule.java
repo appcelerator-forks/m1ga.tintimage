@@ -80,10 +80,7 @@ public class TintimageModule extends KrollModule
 	}
 
 	private String convertPath(String path) {
-			//Log.i("tint", "Open FileInputStream for path: " + path);
-
-			if (path.startsWith("file://") || path.startsWith("content://") || path.startsWith("appdata://") || path.startsWith("appdata-private://"))
-			{
+			if (path.startsWith("file://") || path.startsWith("content://") || path.startsWith("appdata://") || path.startsWith("appdata-private://")) {
 				path = path.replaceAll("file://", "");
 				path = path.replaceAll("content://", "");
 	        	path = path.replaceAll("appdata:///?", "/mnt/sdcard/" + TiApplication.getInstance().getPackageName() + "/");
@@ -190,11 +187,26 @@ public class TintimageModule extends KrollModule
 	@Kroll.method
 	public TiBlob tint(HashMap args) {
 		KrollDict arg = new KrollDict(args);
-		TiDrawableReference ref_image = TiDrawableReference.fromBlob(activity, (TiBlob)arg.get("image"));
-		TiDrawableReference ref_mask = TiDrawableReference.fromBlob(activity, (TiBlob)arg.get("mask"));
+		TiDrawableReference ref_image = null; 
+		TiDrawableReference ref_mask = null; 
+		Bitmap bmp_mask = null;
+		Bitmap bmp_img = null;
+		TiBlob result = null;
+		
+		if (arg.get("image") !="" && arg.get("image") != null) {
+			ref_image = TiDrawableReference.fromBlob(activity, (TiBlob)arg.get("image"));
+			bmp_img = ref_image.getBitmap();
+		}
+		
+		if (arg.get("mask") !="" && arg.get("mask") != null ) {
+			ref_mask = TiDrawableReference.fromBlob(activity, (TiBlob)arg.get("mask"));
+			bmp_mask = ref_mask.getBitmap();
+		}
 
-		Bitmap img = tintImage(ref_image.getBitmap(),ref_mask.getBitmap(),arg);
-		TiBlob result = TiBlob.blobFromImage(img);
+		if (bmp_img != null) {
+			Bitmap img = tintImage(bmp_img,bmp_mask,arg);
+			result = TiBlob.blobFromImage(img);
+		}
 		return result;
 	}
 
