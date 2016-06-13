@@ -19,6 +19,8 @@ import android.graphics.RadialGradient;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
@@ -181,7 +183,29 @@ public class TintimageModule extends KrollModule
 	  return bitmapOut;
 	}
 
+	@Kroll.method
+	public TiBlob grayscale(HashMap args) {
+		KrollDict arg = new KrollDict(args);
+		TiDrawableReference ref_image = null; 
+		Bitmap bmp_img = null;
+		TiBlob result = null;
 
+		if (arg.get("image") !="" && arg.get("image") != null) {
+			ref_image = TiDrawableReference.fromBlob(activity, (TiBlob)arg.get("image"));
+			bmp_img = ref_image.getBitmap();
+			Bitmap bmpGrayscale = Bitmap.createBitmap(bmp_img.getWidth(), bmp_img.getHeight(), Bitmap.Config.ARGB_8888);
+			Canvas c = new Canvas(bmpGrayscale);
+			Paint paint = new Paint();
+			ColorMatrix cm = new ColorMatrix();
+			cm.setSaturation(0);
+			ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
+			paint.setColorFilter(f);
+			c.drawBitmap(bmp_img, 0, 0, paint);
+			result = TiBlob.blobFromImage(bmpGrayscale);
+		}
+
+		return result;
+	}
 
 
 	@Kroll.method
