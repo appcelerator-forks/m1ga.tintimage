@@ -1,13 +1,17 @@
-Titanium module to tint an image
+## Titanium module to tint an image
 
 Binary inside android/dist/ folder
 
 ![ScreenShot](https://raw.github.com/m1ga/tintimage/master/android/example/demo.jpg)
 
+### Attention:
+Android ImageView/Button.tintColor() will be available in Titanium 5.4.0! 
 
-Functions:
+### Functions:
 
-tint
+* tint({ image: blob, mask: blob, mode: string, modeMask: string });
+* mask({ image: blob, mask: blob });
+* grayscale({ image: blob });
 
 ```javascript
 var tint = require("miga.tintimage");
